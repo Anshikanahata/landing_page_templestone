@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>India Avenue Investment Management</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy-deep:    #111B4A;
+      --navy:         #2B3875;
+      --navy-mid:     #364496;
+      --saffron:      #E8832A;
+      --saffron-light:#F4B06A;
+      --saffron-pale: #FBE8D5;
+      --green:        #3B8A3E;
+      --green-light:  #5AAE5E;
+      --white:        #FFFFFF;
+      --off-white:    #F8F5EF;
+      --text-muted:   rgba(255,255,255,0.68);
+      --serif:        'Cormorant Garamond', Georgia, serif;
+      --sans:         'Inter', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--off-white); color: var(--navy); overflow-x: hidden; }
+
+    /* ─── BACKGROUND TEXTURES ─────────────────────────────────── */
+    .jaali-bg {
+      position: absolute; inset: 0; pointer-events: none; z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%23E8832A' stroke-width='0.4' opacity='0.14'%3E%3Crect x='10' y='10' width='60' height='60' rx='2'/%3E%3Crect x='20' y='20' width='40' height='40' rx='2' transform='rotate(45 40 40)'/%3E%3Ccircle cx='40' cy='40' r='15'/%3E%3Ccircle cx='40' cy='40' r='8'/%3E%3Cline x1='40' y1='10' x2='40' y2='70'/%3E%3Cline x1='10' y1='40' x2='70' y2='40'/%3E%3Cline x1='18' y1='18' x2='62' y2='62'/%3E%3Cline x1='62' y1='18' x2='18' y2='62'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 80px 80px;
+    }
+    .terracotta-wash {
+      position: absolute; inset: 0; pointer-events: none; z-index: 0;
+      background: radial-gradient(ellipse 70% 60% at 80% 20%, rgba(232,131,42,0.14) 0%, transparent 60%),
+                  radial-gradient(ellipse 50% 40% at 10% 80%, rgba(59,138,62,0.07) 0%, transparent 60%);
+    }
+
+    /* ─── HEADER ──────────────────────────────────────────────── */
+    header {
+      background: var(--white);
+      padding: 12px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+      border-bottom: 3px solid var(--saffron);
+      box-shadow: 0 2px 20px rgba(43,56,117,0.1);
+    }
+    /* NOTE: Place india-avenue-logo.jpg in the same folder as this HTML file */
+    .logo-link { display: flex; flex-direction: column; gap: 2px; align-items: flex-start; text-decoration: none; }
+    .logo-img { height: 54px; width: auto; display: block; }
+    .logo-sub { font-size: 0.6rem; font-weight: 600; color: var(--navy); letter-spacing: 0.2em; text-transform: uppercase; }
+    .header-flag {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.72rem; color: rgba(43,56,117,0.5);
+      font-weight: 400; letter-spacing: 0.06em;
+    }
+    .flag-line { width: 32px; height: 1px; background: var(--saffron); opacity: 0.6; }
+
+    /* ─── HERO ────────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      background: linear-gradient(155deg, var(--navy-deep) 0%, var(--navy) 55%, #1E2B6B 100%);
+      min-height: 88vh;
+      display: flex; align-items: center;
+      overflow: hidden;
+      padding: 80px 48px;
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 720px; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 12px; margin-bottom: 28px; }
+    .hero-eyebrow-line { width: 40px; height: 1px; background: var(--saffron); }
+    .hero-eyebrow-text { font-size: 0.72rem; font-weight: 500; color: var(--saffron); letter-spacing: 0.2em; text-transform: uppercase; }
+    .hero h1 { font-family: var(--serif); font-size: clamp(2.8rem, 6vw, 5rem); font-weight: 600; color: var(--white); line-height: 1.1; margin-bottom: 28px; }
+    .hero h1 em { font-style: italic; color: var(--saffron-light); }
+    .hero-sub { font-size: 1.05rem; color: var(--text-muted); line-height: 1.75; max-width: 560px; margin-bottom: 48px; font-weight: 300; }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--saffron); color: var(--white);
+      padding: 16px 32px; font-size: 0.88rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .btn-primary:hover { background: var(--saffron-light); color: var(--navy-deep); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(232,131,42,0.35); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: transparent; color: var(--saffron-light);
+      padding: 15px 28px; font-size: 0.85rem; font-weight: 500;
+      letter-spacing: 0.05em; text-decoration: none;
+      border: 1px solid rgba(232,131,42,0.45); cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .btn-ghost:hover { border-color: var(--saffron); background: rgba(232,131,42,0.1); color: var(--saffron-light); }
+    .btn-icon { font-size: 1rem; }
+
+    /* ─── STATS STRIP ─────────────────────────────────────────── */
+    .stats-strip {
+      background: var(--navy-deep);
+      border-top: 1px solid rgba(232,131,42,0.2);
+      border-bottom: 1px solid rgba(232,131,42,0.2);
+      padding: 48px;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+    }
+    .stat-item { text-align: center; padding: 0 24px; position: relative; }
+    .stat-item:not(:last-child)::after {
+      content: ''; position: absolute; right: 0; top: 10%; bottom: 10%;
+      width: 1px; background: rgba(232,131,42,0.2);
+    }
+    .stat-num { font-family: var(--serif); font-size: 3rem; font-weight: 700; color: var(--saffron); line-height: 1; display: block; }
+    .stat-label { font-size: 0.72rem; color: rgba(244,176,106,0.65); letter-spacing: 0.14em; text-transform: uppercase; margin-top: 8px; line-height: 1.5; }
+
+    /* ─── SECTIONS ────────────────────────────────────────────── */
+    section { padding: 96px 48px; }
+    .section-eyebrow { display: inline-flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+    .section-eyebrow-line { width: 32px; height: 1px; background: var(--saffron); }
+    .section-eyebrow-text { font-size: 0.68rem; font-weight: 600; color: var(--saffron); letter-spacing: 0.22em; text-transform: uppercase; }
+    .section-title { font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem); font-weight: 600; color: var(--navy-deep); line-height: 1.2; margin-bottom: 16px; }
+    .section-title em { font-style: italic; color: var(--saffron); }
+    .section-lead { font-size: 1.05rem; color: #4A5568; line-height: 1.8; max-width: 600px; font-weight: 300; }
+
+    /* ─── INTRO BAND ──────────────────────────────────────────── */
+    .intro-band {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+      padding: 80px 48px; position: relative; overflow: hidden;
+    }
+    .intro-band-inner {
+      position: relative; z-index: 2; max-width: 960px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+    }
+    .intro-title { font-family: var(--serif); font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 600; color: var(--white); line-height: 1.25; margin-bottom: 20px; }
+    .intro-title em { color: var(--saffron-light); font-style: italic; }
+    .intro-body { font-size: 0.98rem; color: var(--text-muted); line-height: 1.85; font-weight: 300; }
+    .intro-quote {
+      border-left: 3px solid var(--saffron);
+      padding: 24px 28px; background: rgba(232,131,42,0.08);
+    }
+    .intro-quote-text { font-family: var(--serif); font-size: 1.4rem; font-style: italic; color: var(--saffron-light); line-height: 1.55; margin-bottom: 16px; }
+    .intro-quote-attr { font-size: 0.72rem; color: rgba(244,176,106,0.55); letter-spacing: 0.12em; text-transform: uppercase; }
+
+    /* ─── VALUE PILLARS — CHANGE 1: horizontal flex row ──────── */
+    .pillars-section { background: var(--off-white); }
+    .pillars-header { max-width: 960px; margin: 0 auto 56px; }
+    .pillars-grid {
+      max-width: 960px; margin: 0 auto;
+      display: flex; flex-direction: row;
+    }
+    .pillar-card {
+      flex: 1; padding: 28px 20px; text-align: center;
+      background: var(--white); position: relative; overflow: hidden;
+      transition: background 0.2s ease;
+    }
+    .pillar-card:not(:last-child) {
+      border-right: 1px solid rgba(232,131,42,0.2);
+    }
+    .pillar-card:hover { background: var(--off-white); }
+    .pillar-title {
+      font-size: 13px; font-weight: 700; color: var(--navy);
+      text-transform: uppercase; letter-spacing: 0.06em;
+      margin-bottom: 10px; line-height: 1.3;
+    }
+    .pillar-body { font-size: 12px; color: #6B7280; line-height: 1.65; font-weight: 300; }
+
+    /* ─── CTA SECTION ─────────────────────────────────────────── */
+    .cta-section { background: linear-gradient(155deg, var(--navy-deep) 0%, var(--navy-mid) 100%); position: relative; overflow: hidden; }
+    .cta-inner { position: relative; z-index: 2; max-width: 960px; margin: 0 auto; text-align: center; }
+    .cta-title { font-family: var(--serif); font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 600; color: var(--white); line-height: 1.2; margin-bottom: 16px; }
+    .cta-title em { color: var(--saffron-light); font-style: italic; }
+    .cta-sub { font-size: 1rem; color: var(--text-muted); max-width: 500px; margin: 0 auto 56px; line-height: 1.75; font-weight: 300; }
+    .cta-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .cta-card {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(232,131,42,0.2);
+      padding: 40px 32px; text-align: center;
+      transition: all 0.3s ease; backdrop-filter: blur(8px);
+    }
+    .cta-card:hover { background: rgba(232,131,42,0.08); border-color: rgba(232,131,42,0.45); transform: translateY(-4px); }
+    .cta-card-icon { font-size: 2rem; margin-bottom: 16px; display: block; }
+    .cta-card-title { font-family: var(--serif); font-size: 1.25rem; font-weight: 600; color: var(--saffron-light); margin-bottom: 10px; }
+    .cta-card-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 24px; font-weight: 300; }
+    .cta-card-btn { display: block; padding: 12px 24px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; transition: all 0.3s; }
+    .cta-card-btn-primary { background: var(--saffron); color: var(--white); }
+    .cta-card-btn-primary:hover { background: var(--saffron-light); color: var(--navy-deep); }
+    .cta-card-btn-ghost { border: 1px solid rgba(232,131,42,0.4); color: var(--saffron-light); }
+    .cta-card-btn-ghost:hover { border-color: var(--saffron); background: rgba(232,131,42,0.1); }
+
+    /* ─── GRASSROOTS SLIDESHOW ───────────────────────────────── */
+    .gs-slide {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center; background-repeat: no-repeat;
+      opacity: 0; transition: opacity 1.2s ease; z-index: 0;
+    }
+    .gs-slide.active { opacity: 1; }
+    .gs-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.45) 0%,
+        rgba(255,255,255,0.72) 25%,
+        rgba(255,255,255,0.72) 75%,
+        rgba(255,255,255,0.45) 100%
+      );
+    }
+
+    /* ─── SUBSCRIBE ───────────────────────────────────────────── */
+    .subscribe-section { background: var(--off-white); border-top: 1px solid rgba(43,56,117,0.08); }
+    .subscribe-inner { max-width: 640px; margin: 0 auto; text-align: center; }
+    .hs-form-placeholder {
+      background: var(--white); border: 2px dashed rgba(232,131,42,0.35);
+      padding: 48px 32px; text-align: center; color: #888; font-size: 0.9rem;
+    }
+    .hs-form-placeholder code { display: block; margin-top: 12px; font-size: 0.78rem; color: #aaa; font-family: monospace; }
+
+    /* ─── FOOTER ──────────────────────────────────────────────── */
+    footer { background: var(--navy-deep); border-top: 1px solid rgba(232,131,42,0.2); padding: 48px; }
+    .footer-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr; gap: 48px; align-items: start; }
+    .footer-logo-img { height: 44px; width: auto; filter: brightness(0) invert(1) opacity(0.7); margin-bottom: 8px; display: block; }
+    .footer-sub { font-size: 0.6rem; font-weight: 600; color: var(--saffron); letter-spacing: 0.2em; text-transform: uppercase; margin-top: 4px; }
+    .footer-address { font-size: 0.78rem; color: rgba(244,176,106,0.4); line-height: 1.7; margin-top: 12px; font-weight: 300; }
+    .footer-legal { font-size: 0.72rem; color: rgba(255,255,255,0.3); line-height: 1.85; font-weight: 300; }
+    .footer-links { display: flex; gap: 20px; margin-top: 16px; }
+    .footer-links a { font-size: 0.72rem; color: rgba(232,131,42,0.45); text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--saffron); }
+
+    /* ─── ANIMATIONS ──────────────────────────────────────────── */
+    .fade-up { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-up-delay-1 { transition-delay: 0.1s; }
+    .fade-up-delay-2 { transition-delay: 0.2s; }
+    .fade-up-delay-3 { transition-delay: 0.3s; }
+
+    /* ─── RESPONSIVE ──────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      header { padding: 12px 20px; }
+      .hero { padding: 60px 20px; min-height: auto; }
+      .stats-strip { grid-template-columns: repeat(2, 1fr); padding: 32px 20px; }
+      .stat-item:not(:last-child)::after { display: none; }
+      section { padding: 64px 20px; }
+      .intro-band { padding: 64px 20px; }
+      .intro-band-inner, .cta-grid { grid-template-columns: 1fr; }
+      .pillars-grid { flex-direction: column; }
+      .pillar-card:not(:last-child) { border-right: none; border-bottom: 1px solid rgba(232,131,42,0.2); }
+      .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+      footer { padding: 40px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── HEADER ─────────────────────────────────────────────── -->
+  <!-- NOTE: Place india-avenue-logo.jpg in the same folder as this HTML file -->
+  <header>
+    <a href="#" class="logo-link">
+      <img src="india-avenue-logo.jpg" alt="India Avenue Investment Management" class="logo-img" />
+      <span class="logo-sub">Investment Management</span>
+    </a>
+    <div class="header-flag">
+      <span class="flag-line"></span>
+      Sydney · India Equities Specialists
+    </div>
+  </header>
+
+  <!-- ─── HERO ───────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="jaali-bg"></div>
+    <div class="terracotta-wash"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="hero-eyebrow-line"></span>
+        <span class="hero-eyebrow-text">India. Exclusively.</span>
+      </div>
+      <h1>The World's Most <em>Compelling</em> Long-Term Growth Story</h1>
+      <p class="hero-sub">
+        India Avenue has spent over a decade building the knowledge, relationships, and rigour needed to invest in Indian equities with genuine conviction. We're not a broad emerging markets fund with an India sleeve — this is all we do.
+      </p>
+      <div class="hero-ctas">
+        <a href="TEAMS_BOOKING_URL" class="btn-primary">
+          <span class="btn-icon">🗓</span> Book a Teams Meeting
+        </a>
+        <a href="COFFEE_BOOKING_URL" class="btn-ghost">
+          <span class="btn-icon">☕</span> Coffee in Sydney
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── STATS STRIP ─────────────────────────────────────────── -->
+  <div class="stats-strip">
+    <div class="stat-item fade-up">
+      <span class="stat-num">10</span>
+      <span class="stat-label">Year Track Record</span>
+    </div>
+    <!-- CHANGE 2: white background so dark Lonsec logo is visible; img styled without filter -->
+    <div class="stat-item fade-up fade-up-delay-1" style="background:#ffffff;">
+      <!--
+        LONSEC LOGO: Place lonsec_logo.png in this folder, then run:
+          base64 -w 0 lonsec_logo.png
+        Replace the src below with: data:image/png;base64,[PASTE OUTPUT HERE]
+      -->
+      <img src="lonsec_logo.png" alt="Lonsec"
+           style="display:block; width:56px; height:56px; object-fit:contain; margin:0 auto;" />
+      <span class="stat-label" style="color:rgba(43,56,117,0.6);">Lonsec Recommended Rating, March 2025</span>
+    </div>
+    <div class="stat-item fade-up fade-up-delay-2">
+      <span class="stat-num">Exchange Listed</span>
+      <span class="stat-label">Active ETF version available</span>
+    </div>
+    <div class="stat-item fade-up fade-up-delay-3">
+      <span class="stat-num">Platforms</span>
+      <span class="stat-label">Available on Multiple<br>Investment Platforms</span>
+    </div>
+  </div>
+
+  <!-- ─── INTRO BAND ──────────────────────────────────────────── -->
+  <div class="intro-band">
+    <div class="jaali-bg"></div>
+    <div class="intro-band-inner">
+      <div class="fade-up">
+        <div class="section-eyebrow">
+          <span class="section-eyebrow-line"></span>
+          <span class="section-eyebrow-text">Our conviction</span>
+        </div>
+        <h2 class="intro-title">India isn't an emerging market.<br><em>It's the next great economy.</em></h2>
+        <p class="intro-body">
+          Over 1.4 billion people, with a median age of 29, and a government committed to infrastructure and manufacturing transformation, India is structurally positioned for decades of compounding growth. We've been here since before the consensus caught on.
+        </p>
+      </div>
+      <div class="fade-up fade-up-delay-1">
+        <div class="intro-quote">
+          <p class="intro-quote-text">"India Avenue gives Australian advisers truly differentiated access to one of the world's most compelling long-term opportunities — without the noise."</p>
+          <span class="intro-quote-attr">— India Avenue Investment Management</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── VALUE PILLARS — CHANGE 1: horizontal flex row ────────── -->
+  <section class="pillars-section">
+    <div class="pillars-header fade-up">
+      <div class="section-eyebrow">
+        <span class="section-eyebrow-line"></span>
+        <span class="section-eyebrow-text">Why India Avenue</span>
+      </div>
+      <h2 class="section-title">Five reasons advisers choose <em>India Avenue</em></h2>
+    </div>
+    <div class="pillars-grid">
+      <div class="pillar-card fade-up">
+        <h3 class="pillar-title">India's Growth Story</h3>
+        <p class="pillar-body">India's growth trajectory, driven by favourable demographic and macroeconomic highlights, makes India a standout growth opportunity of the next few decades.</p>
+      </div>
+      <div class="pillar-card fade-up fade-up-delay-1">
+        <h3 class="pillar-title">Competitive Edge</h3>
+        <p class="pillar-body">Our singular focus and deep expertise on India provides investors with differentiated insights and a distinct competitive advantage.</p>
+      </div>
+      <div class="pillar-card fade-up fade-up-delay-2">
+        <h3 class="pillar-title">Local Network</h3>
+        <p class="pillar-body">Our extensive on-ground network across India enables superior access to knowledge, insights, and emerging opportunities.</p>
+      </div>
+      <div class="pillar-card fade-up fade-up-delay-3">
+        <h3 class="pillar-title">Smart Portfolio Construction</h3>
+        <p class="pillar-body">Sophisticated portfolio construction leveraging local expertise allows our investors to participate like insiders, not outsiders.</p>
+      </div>
+      <div class="pillar-card fade-up">
+        <h3 class="pillar-title">Easy Accessibility</h3>
+        <p class="pillar-body">Streamlined fund structures and transparent processes make investing in India simple and accessible for all investors.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA SECTION ─────────────────────────────────────────── -->
+  <section class="cta-section">
+    <div class="jaali-bg"></div>
+    <div class="terracotta-wash"></div>
+    <div class="cta-inner">
+      <div class="fade-up">
+        <div class="section-eyebrow" style="justify-content:center">
+          <span class="section-eyebrow-line"></span>
+          <span class="section-eyebrow-text">Next steps</span>
+          <span class="section-eyebrow-line"></span>
+        </div>
+        <h2 class="cta-title">How would you like to <em>connect?</em></h2>
+        <p class="cta-sub">No obligation, no hard sell. Choose the format that suits you best.</p>
+      </div>
+      <div class="cta-grid fade-up fade-up-delay-1">
+        <div class="cta-card">
+          <span class="cta-card-icon">🎥</span>
+          <h3 class="cta-card-title">Teams Meeting</h3>
+          <p class="cta-card-desc">A focused 30-minute introduction — our process, our products, and whether India deserves a place in your clients' portfolios.</p>
+          <a href="TEAMS_BOOKING_URL" class="cta-card-btn cta-card-btn-primary">Book a time →</a>
+        </div>
+        <div class="cta-card">
+          <span class="cta-card-icon">☕</span>
+          <h3 class="cta-card-title">Coffee in Sydney</h3>
+          <p class="cta-card-desc">Prefer face-to-face? We're based in the CBD and happy to come to you. A casual conversation, no decks required.</p>
+          <a href="COFFEE_BOOKING_URL" class="cta-card-btn cta-card-btn-ghost">Let's meet →</a>
+        </div>
+        <div class="cta-card">
+          <span class="cta-card-icon">📬</span>
+          <h3 class="cta-card-title">Stay Informed</h3>
+          <p class="cta-card-desc">Stay informed by subscribing to our Research Database. You will receive our factsheet, research and insights.</p>
+          <a href="#subscribe" class="cta-card-btn cta-card-btn-ghost">Subscribe below ↓</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── GRASSROOTS INDIA TOUR — CHANGE 3: background slideshow ── -->
+  <section class="subscribe-section" id="subscribe" style="position:relative; overflow:hidden;">
+
+    <!-- Slideshow background layers — .active class drives opacity via CSS transition -->
+    <!-- grassroots3 is HEIC (unsupported in browsers) so only 3 slides are used -->
+    <div class="gs-slide active" style="background-image:url('grassroots2.png');"></div>
+    <div class="gs-slide" style="background-image:url('grassroots4.PNG');"></div>
+    <div class="gs-slide" style="background-image:url('grassroots5.PNG');"></div>
+
+    <!-- White overlay to keep content readable -->
+    <div class="gs-overlay"></div>
+
+    <!-- Section content -->
+    <div style="position:relative; z-index:2;">
+      <div class="subscribe-inner fade-up">
+        <div class="section-eyebrow" style="justify-content:center">
+          <span class="section-eyebrow-line"></span>
+          <span class="section-eyebrow-text">Exclusive Experience</span>
+          <span class="section-eyebrow-line"></span>
+        </div>
+        <h2 class="section-title" style="text-align:center; color:var(--navy-deep)">Grassroots India Tour</h2>
+        <p class="section-lead" style="text-align:center; margin:0 auto 16px">An immersion tour to India, run for interested wealth management professionals, investment consultants and family offices.</p>
+        <p class="section-lead" style="text-align:center; margin:0 auto 40px">Next Tour — February 2027</p>
+        <a href="https://bit.ly/4v4B512?utm_source=templestone&utm_medium=referral&utm_campaign=grassroots-2026&utm_content=landing-page-cta"
+           target="_blank"
+           class="btn-primary"
+           style="display:inline-flex; margin:0 auto;">
+          View 2026 Tour Summary →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─────────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <!-- NOTE: Logo with filter applied for dark background display -->
+        <img src="india-avenue-logo.jpg" alt="India Avenue" class="footer-logo-img" />
+        <span class="footer-sub">Investment Management</span>
+        <p class="footer-address">
+          Level 4, 261 George Street<br>
+          Sydney NSW 2000, Australia
+        </p>
+      </div>
+      <div>
+        <p class="footer-legal">
+          India Avenue Investment Management Pty Ltd (ABN 38 604 095 864) is a Corporate Authorised Representative of Glennon Capital Pty Ltd (ABN 39 150 011 218, AFSL 410 598). This material is for financial adviser use only and does not constitute personal advice. Past performance is not a reliable indicator of future returns. This material has been prepared without taking into account any individual's objectives, financial situation or needs.
+        </p>
+        <!-- CHANGE 4: updated website link to indiaavenue.com.au -->
+        <div class="footer-links">
+          <a href="{{unsubscribe_link}}">Unsubscribe</a>
+          <a href="{{manage_preferences_link}}">Manage Preferences</a>
+          <a href="https://indiaavenue.com.au/" target="_blank" style="color:rgba(232,131,42,0.5);">indiaavenue.com.au</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(el => { if (el.isIntersecting) { el.target.classList.add('visible'); observer.unobserve(el.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    const counters = document.querySelectorAll('[data-count]');
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const target = parseInt(el.dataset.count);
+          const suffix = el.dataset.suffix || '';
+          let current = 0;
+          const increment = target / 40;
+          const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) { el.textContent = target + suffix; clearInterval(timer); }
+            else { el.textContent = Math.floor(current) + suffix; }
+          }, 30);
+          counterObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(el => counterObserver.observe(el));
+
+    // Grassroots India Tour background slideshow — cycles every 4s
+    (function () {
+      var slides = document.querySelectorAll('.gs-slide');
+      if (!slides.length) return;
+      var current = 0;
+      setInterval(function () {
+        slides[current].classList.remove('active');
+        current = (current + 1) % slides.length;
+        slides[current].classList.add('active');
+      }, 4000);
+    })();
+  </script>
+</body>
+</html>
